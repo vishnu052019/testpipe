@@ -1,0 +1,21 @@
+#azure-pipeline.yml
+
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+extends:
+  template: testing-template.yml
+  parameters:
+    testSet:
+    - job: positive_test
+      templateContext:
+        expectedHTTPResponseCode: 200
+      steps:
+      - script: echo "Run positive test" 
+    - job: negative_test
+      templateContext:
+        expectedHTTPResponseCode: 500
+      steps:
+      - script: echo "Run negative test" 
